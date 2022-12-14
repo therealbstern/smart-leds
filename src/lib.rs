@@ -43,6 +43,15 @@ where
     }
 }
 
+/// Pass your iterators into this function to get variable reduced brightnesses
+pub fn brightness_each<'a, I, J>(iter: I, mut brightness: J) -> Brightness<I>
+where
+    I: Iterator<Item = RGB8>,
+    J: Iterator<Item = &'a u8>,
+{
+    Brightness { iter, brightness: *brightness.next().unwrap_or(&255) }
+}
+
 /// Pass your iterator into this function to get reduced brightness
 pub fn brightness<I>(iter: I, brightness: u8) -> Brightness<I>
 where
